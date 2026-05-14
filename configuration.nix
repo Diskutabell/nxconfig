@@ -12,7 +12,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # AMD GPU – Performance-Modus erzwingen (volle Power-Features freischalten)
+  # AMD GPU
   boot.kernelParams = [ "amdgpu.ppfeaturemask=0xffffffff" ];
 
   networking.hostName = "nixos";
@@ -52,24 +52,24 @@
     pulse.enable = true;
   };
 
-  # AMD GPU – Mesa/Vulkan/OpenCL Treiber
+  # AMD GPU
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
     extraPackages = with pkgs; [
-      rocmPackages.clr.icd     # OpenCL Support
-      libva-vdpau-driver       # Hardware Video Acceleration (umbenannt von vaapiVdpau)
+      rocmPackages.clr.icd     
+      libva-vdpau-driver      
       libvdpau-va-gl
     ];
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  # GPU dauerhaft auf Performance-Level "high" setzen
+  # GPU
   systemd.tmpfiles.rules = [
     "w /sys/class/drm/card1/device/power_dpm_force_performance_level - - - - high"
   ];
 
-  # LACT Daemon für AMD GPU Control (GUI-Tool)
+  # LACT Daemon 
   systemd.services.lactd = {
     description = "AMDGPU Control Daemon";
     after = [ "multi-user.target" ];
@@ -85,7 +85,7 @@
     options = [ "defaults" "nofail" ];
   };
 
-  # AMD CPU microcode (remove this if you have an Intel CPU and use hardware.cpu.intel.updateMicrocode instead)
+  # AMD CPU microcode
   hardware.cpu.amd.updateMicrocode = true;
 
   # User
@@ -106,6 +106,7 @@
       lug-helper
       inputs.nix-citizen.packages.x86_64-linux.rsi-launcher
       nodejs_20
+      claude-code
     ];
   };
 
@@ -127,7 +128,7 @@
   trusted-public-keys = [ "nix-citizen.cachix.org-1:lPMkWc2X8XD4/7YPEEwXKKBg+SVbYTVrAaLA2wQTKCo=" ];
   experimental-features = [ "nix-command" "flakes" ];
 };
-  programs.gamemode.enable = true;  # better performance for games (Feral GameMode)
+  programs.gamemode.enable = true;  
 
   # Firefox
   programs.firefox.enable = true;
