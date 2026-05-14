@@ -1,0 +1,4 @@
+hardware-configuration.nix
+*.bak
+nixos_key
+nixos_key.pub
