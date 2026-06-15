@@ -189,7 +189,7 @@
     # UI components
     waybar               # status bar
     fuzzel               # app launcher (lighter than wofi  )
-    mako                 # notification daemon (or dunst)
+    dunst                # notification daemon
     swww                 # wallpaper daemon (or hyprpaper)
 
     # Lock + idle
@@ -209,7 +209,15 @@
     networkmanagerapplet # nm-applet wifi tray icon
     nwg-look             # GTK theme settings GUI
     wlogout  
-    blueman       
+    blueman 
+
+    # BlackNode rice deps
+    rofi-wayland      # launcher this rice uses
+    wallust              # generates colors from wallpaper
+    cava                 # audio visualiser
+    clipse               # clipboard history
+    yazi                 # terminal file manager
+    alacritty            # second terminal the rice themes      
   ];
 
 fonts.packages = with pkgs; [
