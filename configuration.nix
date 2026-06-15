@@ -212,7 +212,7 @@
     blueman 
 
     # BlackNode rice deps
-    rofi-wayland      # launcher this rice uses
+    rofi                 # launcher this rice uses
     wallust              # generates colors from wallpaper
     cava                 # audio visualiser
     clipse               # clipboard history
