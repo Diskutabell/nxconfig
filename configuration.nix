@@ -177,7 +177,46 @@
     mesa-demos
     vulkan-tools
     pciutils
+
+    #hyprland shit bc it doesnt ship with it on default :c
+
+    # Session glue
+    hyprpolkitagent      # GUI password prompts for privileged actions
+    xdg-utils            # xdg-open and friends
+    wl-clipboard         # wl-copy / wl-paste
+    cliphist             # clipboard history
+
+    # UI components
+    waybar               # status bar
+    fuzzel               # app launcher (lighter than wofi  )
+    mako                 # notification daemon (or dunst)
+    swww                 # wallpaper daemon (or hyprpaper)
+
+    # Lock + idle
+    hyprlock             # screen locker
+    hypridle             # auto-lock / screen-off
+
+    # Screenshots
+    grim                 # screenshot
+    slurp                # region select
+    hyprshot             # convenient wrapper around grim+slurp
+
+    
+    brightnessctl        # backlight keys
+    playerctl            # media play/pause keys
+    pamixer              # CLI volume (for volume keybinds)
+    pavucontrol          # graphical audio mixer
+    networkmanagerapplet # nm-applet wifi tray icon
+    nwg-look             # GTK theme settings GUI
+    wlogout  
+    blueman       
   ];
+
+  fonts.packages = with pkgs; [
+  nerd-fonts.jetbrains-mono
+  noto-fonts
+  noto-fonts-emoji
+];
 
   system.stateVersion = "25.11";
 }
