@@ -1,14 +1,37 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running 'nixos-help').
+#          ▗▄▄▄       ▗▄▄▄▄    ▄▄▄▖             diskutabel@nixos
+#          ▜███▙       ▜███▙  ▟███▛             ----------------
+#           ▜███▙       ▜███▙▟███▛              OS: NixOS 26.11 (Zokor) x86_64
+#            ▜███▙       ▜██████▛               Host: MS-7D53 (1.0)
+#     ▟█████████████████▙ ▜████▛     ▟▙         Kernel: Linux 6.18.26
+#    ▟███████████████████▙ ▜███▙    ▟██▙        Uptime: 1 hour, 25 mins
+#           ▄▄▄▄▖           ▜███▙  ▟███▛        Packages: 1657 (nix-system), 869 (nix-user)
+#          ▟███▛             ▜██▛ ▟███▛         Shell: bash 5.3.9
+#         ▟███▛               ▜▛ ▟███▛          Display (Q27G4ZR): 2560x1440 in 27", 144 Hz [External] *
+#▟███████████▛                  ▟██████████▙    Display (HP 27m): 1920x1080 in 27", 60 Hz [External]
+#▜██████████▛                  ▟███████████▛    DE: KDE Plasma 6.6.5
+#      ▟███▛ ▟▙               ▟███▛             WM: KWin (Wayland)
+#     ▟███▛ ▟██▙             ▟███▛              WM Theme: WhiteSur-dark
+#    ▟███▛  ▜███▙           ▝▀▀▀▀               Theme: Breeze (WhiteSurDark) [Qt]
+#    ▜██▛    ▜███▙ ▜██████████████████▛         Icons: WhiteSur-dark [Qt], WhiteSur-dark [GTK2/3/4]
+#     ▜▛     ▟████▙ ▜████████████████▛          Font: Noto Sans (10pt) [Qt], Noto Sans (10pt) [GTK2/3/4]
+#           ▟██████▙         ▜███▙              Cursor: WhiteSur (24px)
+#          ▟███▛▜███▙         ▜███▙             Terminal: konsole 26.4.0
+#         ▟███▛  ▜███▙         ▜███▙            CPU: AMD Ryzen 7 5800X (16) @ 4.85 GHz
+#         ▝▀▀▀    ▀▀▀▀▘         ▀▀▀▘            GPU: AMD Radeon RX 7900 XT [Discrete]
+#                                               Memory: 6.52 GiB / 31.27 GiB (21%)
+#                                               Swap: 4.00 KiB / 16.00 GiB (0%)
+#                                               Disk (/): 305.37 GiB / 914.83 GiB (33%) - ext4
+#                                               Disk (/mnt/data): 431.03 GiB / 1.79 TiB (24%) - ext4
+#                                               Locale: en_US.UTF-8
+#                                               
 { config, pkgs, inputs, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       ./hardware-configuration.nix
     ];
 
-  # Bootloader.
+  # Bootloader. this is important!!
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -65,12 +88,11 @@
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  # GPU
   systemd.tmpfiles.rules = [
     "w /sys/class/drm/card1/device/power_dpm_force_performance_level - - - - high"
   ];
 
-  # LACT Daemon 
+  # LACT Daemon  i forgor what this was lowk something something hardware
   systemd.services.lactd = {
     description = "AMDGPU Control Daemon";
     after = [ "multi-user.target" ];
@@ -86,10 +108,9 @@
     options = [ "defaults" "nofail" ];
   };
 
-  # AMD CPU microcode
+
   hardware.cpu.amd.updateMicrocode = true;
 
-  # User
   users.users.diskutabel = {
     isNormalUser = true;
     description = "diskutabel";
@@ -105,7 +126,7 @@
       kitty
       lug-helper
       inputs.nix-citizen.packages.x86_64-linux.rsi-launcher
-      nodejs_20
+      nodejs_22
       claude-code
       jetbrains.idea
       wineWow64Packages.stable
@@ -114,17 +135,25 @@
     ];
   };
 
+# merken du bastard
+
+# sudo git add -A
+# sudo git commit -m "your message here"
+# sudo git push
+
+# sudo nix flake update
+# sudo nixos-rebuild switch --flake .
+
   swapDevices = [{
     device = "/swapfile";
     size = 16 * 1024; # 16GB
   }];
 
-  # Gaming
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true;       # for Steam Remote Play
-    dedicatedServer.openFirewall = true;  # for hosting game servers
-    gamescopeSession.enable = true;       # gamescope session option in SDDM
+    remotePlay.openFirewall = true;       
+    dedicatedServer.openFirewall = true;  
+    gamescopeSession.enable = true;       
   };
 
  nix.settings = {
@@ -134,19 +163,17 @@
 };
   programs.gamemode.enable = true;  
 
-  # Firefox
+ 
   programs.firefox.enable = true;
 
-  # Allow unfree packages
+  
   nixpkgs.config.allowUnfree = true;
 
-  # System-wide packages
+ 
   environment.systemPackages = with pkgs; [
-    # Editors / dev
+    
     vscode
     git
-
-    # Shell / terminal QoL
     wget
     curl
     unzip
@@ -156,17 +183,13 @@
     fastfetch      
     ripgrep         
     fd                          
-
-    
     mpv
     vlc
-
-    
-    radeontop       # AMD GPU Monitor
-    lact            # AMD GPU Control GUI
-    mesa-demos      # glxinfo, glxgears
-    vulkan-tools    # vulkaninfo, vkcube
-    pciutils        # lspci
+    radeontop       
+    lact            
+    mesa-demos      
+    vulkan-tools    
+    pciutils        
 
   
   ];
