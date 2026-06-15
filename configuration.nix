@@ -190,7 +190,7 @@
     waybar               # status bar
     fuzzel               # app launcher (lighter than wofi  )
     dunst                # notification daemon
-    swww                 # wallpaper daemon (or hyprpaper)
+    awww                 # wallpaper daemon (or hyprpaper)
 
     # Lock + idle
     hyprlock             # screen locker
