@@ -217,7 +217,8 @@
     cava                 # audio visualiser
     clipse               # clipboard history
     yazi                 # terminal file manager
-    alacritty            # second terminal the rice themes      
+    alacritty            # second terminal the rice themes   
+    libnotify   
   ];
 
 fonts.packages = with pkgs; [
