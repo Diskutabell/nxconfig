@@ -113,6 +113,11 @@
     size = 16 * 1024; # 16GB
   }];
 
+  programs.hyprland = {
+   enable = true;
+    withUWSM = true;   # recommended session manager wrapper
+   xwayland.enable = true;
+  };
   users.users.diskutabel = {
     isNormalUser = true;
     description = "diskutabel";
