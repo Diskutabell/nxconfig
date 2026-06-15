@@ -41,6 +41,7 @@
   };
   console.keyMap = "de";
   services.printing.enable = true;
+  services.mullvad-vpn.enable = true;
 
   # Sound
   services.pulseaudio.enable = false;
@@ -94,7 +95,6 @@
     description = "diskutabel";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      # User-specific apps
       kdePackages.kate
       vesktop
       prismlauncher
@@ -107,6 +107,10 @@
       inputs.nix-citizen.packages.x86_64-linux.rsi-launcher
       nodejs_20
       claude-code
+      jetbrains.idea
+      wineWow64Packages.stable
+      winetricks
+      keepassxc
     ];
   };
 
@@ -149,25 +153,22 @@
     p7zip
     file
     tree
-    fastfetch       # like neofetch but maintained
-    ripgrep         # fast grep replacement
-    fd              # fast find replacement
-    bat             # cat with syntax highlighting
-    eza             # ls replacement
+    fastfetch      
+    ripgrep         
+    fd                          
 
-    # Media
+    
     mpv
     vlc
 
-    # GPU / System Monitoring
+    
     radeontop       # AMD GPU Monitor
     lact            # AMD GPU Control GUI
     mesa-demos      # glxinfo, glxgears
     vulkan-tools    # vulkaninfo, vkcube
     pciutils        # lspci
 
-    # Misc
-    htop
+  
   ];
 
   system.stateVersion = "25.11";
