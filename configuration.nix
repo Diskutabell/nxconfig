@@ -212,13 +212,9 @@
     blueman 
 
     # BlackNode rice deps
-    rofi                 # launcher this rice uses
-    wallust              # generates colors from wallpaper
-    cava                 # audio visualiser
-    clipse               # clipboard history
-    yazi                 # terminal file manager
-    alacritty            # second terminal the rice themes   
+    rofi               
     libnotify   
+    zsh
   ];
 
 fonts.packages = with pkgs; [
