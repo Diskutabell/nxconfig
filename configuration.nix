@@ -1,29 +1,26 @@
 #          ▗▄▄▄       ▗▄▄▄▄    ▄▄▄▖             diskutabel@nixos
 #          ▜███▙       ▜███▙  ▟███▛             ----------------
 #           ▜███▙       ▜███▙▟███▛              OS: NixOS 26.11 (Zokor) x86_64
-#            ▜███▙       ▜██████▛               Host: MS-7D53 (1.0)
-#     ▟█████████████████▙ ▜████▛     ▟▙         Kernel: Linux 6.18.26
-#    ▟███████████████████▙ ▜███▙    ▟██▙        Packages: 1657 (nix-system), 869 (nix-user)
-#           ▄▄▄▄▖           ▜███▙  ▟███▛        Shell: bash 5.3.9
-#          ▟███▛             ▜██▛ ▟███▛         DE: KDE Plasma 6.6.5
-#         ▟███▛               ▜▛ ▟███▛          WM: KWin (Wayland)
-#▟███████████▛                  ▟██████████▙    WM Theme: WhiteSur-dark
-#▜██████████▛                  ▟███████████▛    Theme: Breeze (WhiteSurDark) [Qt]
-#      ▟███▛ ▟▙               ▟███▛             CPU: AMD Ryzen 7 5800X (16) @ 4.85 GHz
-#     ▟███▛ ▟██▙             ▟███▛              GPU: AMD Radeon RX 7900 XT [Discrete]
-#    ▟███▛  ▜███▙           ▝▀▀▀▀               Locale: en_US.UTF-8
-#    ▜██▛    ▜███▙ ▜██████████████████▛         
-#     ▜▛     ▟████▙ ▜████████████████▛          
-#           ▟██████▙         ▜███▙              
-#          ▟███▛▜███▙         ▜███▙             
-#         ▟███▛  ▜███▙         ▜███▙            
+#            ▜███▙       ▜██████▛               Kernel: Linux 6.18.35
+#     ▟█████████████████▙ ▜████▛     ▟▙         Packages: 1729 (nix-system), 866 (nix-user)
+#    ▟███████████████████▙ ▜███▙    ▟██▙        Shell: bash 5.3.9
+#           ▄▄▄▄▖           ▜███▙  ▟███▛        WM: Hyprland 0.55.3 (Wayland)
+#          ▟███▛             ▜██▛ ▟███▛         Icons: WhiteSur-dark [GTK2/3/4]
+#         ▟███▛               ▜▛ ▟███▛          Font: Noto Sans (10pt) [GTK2/3/4]
+#▟███████████▛                  ▟██████████▙    Cursor: WhiteSur (24px)
+#▜██████████▛                  ▟███████████▛    
+#      ▟███▛ ▟▙               ▟███▛             
+#     ▟███▛ ▟██▙             ▟███▛              
+#    ▟███▛  ▜███▙           ▝▀▀▀▀               
+#    ▜██▛    ▜███▙ ▜██████████████████▛         Terminal: kitty 0.47.2
+#     ▜▛     ▟████▙ ▜████████████████▛          Terminal Font: JetBrainsMonoNF-Regular (12pt)
+#           ▟██████▙         ▜███▙              CPU: AMD Ryzen 7 5800X (16) @ 4.85 GHz
+#          ▟███▛▜███▙         ▜███▙             GPU: AMD Radeon RX 7900 XT [Discrete]
+#         ▟███▛  ▜███▙         ▜███▙           
 #         ▝▀▀▀    ▀▀▀▀▘         ▀▀▀▘            
-#                                               
-#                                               
-#                                               
-#                                               
-#                                               
 
+                                               
+ 
 { config, pkgs, inputs, ... }:
 {
   imports =
@@ -65,7 +62,6 @@
     videoDrivers = [ "amdgpu" ];
   };
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
 
   services.printing.enable = true;
   services.mullvad-vpn.enable = true;
@@ -181,37 +177,35 @@
     #hyprland shit bc it doesnt ship with it on default :c
 
     # Session glue
-    hyprpolkitagent      # GUI password prompts for privileged actions
-    xdg-utils            # xdg-open and friends
-    wl-clipboard         # wl-copy / wl-paste
-    cliphist             # clipboard history
+    hyprpolkitagent     
+    xdg-utils           
+    wl-clipboard         
+    cliphist            
 
     # UI components
-    waybar               # status bar
-    fuzzel               # app launcher (lighter than wofi  )
-    dunst                # notification daemon
-    awww                 # wallpaper daemon (or hyprpaper)
+    waybar              
+    fuzzel               
+    dunst               
+    awww                 
 
     # Lock + idle
-    hyprlock             # screen locker
-    hypridle             # auto-lock / screen-off
+    hyprlock             
+    hypridle             
 
     # Screenshots
-    grim                 # screenshot
-    slurp                # region select
-    hyprshot             # convenient wrapper around grim+slurp
+    grim                 
+    slurp                
+    hyprshot             
 
     
-    brightnessctl        # backlight keys
-    playerctl            # media play/pause keys
-    pamixer              # CLI volume (for volume keybinds)
-    pavucontrol          # graphical audio mixer
-    networkmanagerapplet # nm-applet wifi tray icon
-    nwg-look             # GTK theme settings GUI
+    brightnessctl        
+    playerctl            
+    pamixer             
+    pavucontrol          
+    networkmanagerapplet 
+    nwg-look             
     wlogout  
     blueman 
-
-    # BlackNode rice deps
     rofi               
     libnotify   
     zsh
