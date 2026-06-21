@@ -61,8 +61,18 @@
     };
     videoDrivers = [ "amdgpu" ];
   };
-  services.displayManager.sddm.enable = true;
 
+ services.displayManager.sddm = {
+      enable = true;
+      package = pkgs.kdePackages.sddm;        # Qt6 SDDM (needed by modern themes)
+      theme = "sddm-astronaut-theme";
+      extraPackages = with pkgs; [
+        sddm-astronaut
+        qt6.qtmultimedia
+        qt6.qtsvg
+        qt6.qtvirtualkeyboard
+      ];
+    };
   services.printing.enable = true;
   services.mullvad-vpn.enable = true;
 
@@ -145,6 +155,8 @@
   programs.gamemode.enable = true;
 
   programs.firefox.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
@@ -180,24 +192,13 @@
     hyprpolkitagent     
     xdg-utils           
     wl-clipboard         
-    cliphist            
-
-    # UI components
-    waybar              
-    fuzzel               
-    dunst               
+    cliphist                       
     awww                 
-
-    # Lock + idle
     hyprlock             
     hypridle             
-
-    # Screenshots
     grim                 
     slurp                
     hyprshot             
-
-    
     brightnessctl        
     playerctl            
     pamixer             
@@ -209,6 +210,21 @@
     rofi               
     libnotify   
     zsh
+    python3  
+    pulseaudio 
+    bluez 
+    ffmpeg 
+    socat               
+    satty             
+    imagemagick 
+    jq   
+    mpvpaper            
+    swayosd             
+    cava               
+    qt6.qtmultimedia  
+    quickshell         
+    matugen 
+    pkgs.sddm-astronaut
   ];
 
 fonts.packages = with pkgs; [
