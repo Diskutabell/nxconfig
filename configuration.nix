@@ -225,6 +225,11 @@
     quickshell         
     matugen 
     pkgs.sddm-astronaut
+    kdePackages.dolphin
+    inotify-tools
+    bc
+    iw
+    psmisc
   ];
 
 fonts.packages = with pkgs; [
