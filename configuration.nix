@@ -157,7 +157,7 @@
   programs.firefox.enable = true;
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
-
+  services.power-profiles-daemon.enable = true;
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [ "https://nix-citizen.cachix.org" ];
