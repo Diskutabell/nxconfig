@@ -111,9 +111,10 @@
 
 # merken du bastard
 
-# sudo git add -A
-# sudo git commit -m "your message here"
-# sudo git push
+# git add -A
+# git commit -m "your message here"
+# git push
 
 # sudo nix flake update
 # sudo nixos-rebuild switch --flake .
+# sudo chown -R diskutabel:users /etc/nixos
