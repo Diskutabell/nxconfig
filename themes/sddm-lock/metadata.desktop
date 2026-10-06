@@ -1,0 +1,11 @@
+[SddmGreeterTheme]
+Name=lock
+Description=Login screen matching the quickshell Win+L lock
+Author=diskutabel
+License=MIT
+Type=sddm-theme
+Version=2.0
+Website=https://github.com/Diskutabell/nxconfig
+MainScript=Main.qml
+ConfigFile=theme.conf
+QtVersion=6

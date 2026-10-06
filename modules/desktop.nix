@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 let
-  sddm-hyprlock-theme = pkgs.runCommandLocal "sddm-hyprlock-theme" { } ''
-    mkdir -p "$out/share/sddm/themes/hyprlock"
-    cp -r ${../themes/sddm-hyprlock}/. "$out/share/sddm/themes/hyprlock/"
+  sddm-lock-theme = pkgs.runCommandLocal "sddm-lock-theme" { } ''
+    mkdir -p "$out/share/sddm/themes/lock"
+    cp -r ${../themes/sddm-lock}/. "$out/share/sddm/themes/lock/"
   '';
 
   sddm-setup = pkgs.writeShellApplication {
@@ -19,7 +19,6 @@ in
     withUWSM = true;
   };
 
-  # Only used for the SDDM greeter, which runs on X11.
   services.xserver = {
     enable = true;
     xkb.layout = "de";
@@ -29,10 +28,11 @@ in
   services.displayManager.sddm = {
     enable = true;
     package = pkgs.kdePackages.sddm;
-    theme = "hyprlock";
+    theme = "lock";
     extraPackages = with pkgs; [ qt6.qtmultimedia qt6.qtsvg ];
     settings = {
       General.InputMethod = "";
+      General.GreeterEnvironment = "QML_XHR_ALLOW_FILE_READ=1";
       X11.EnableHiDPI = false;
     };
     setupScript = "${sddm-setup}/bin/sddm-setup";
@@ -64,7 +64,7 @@ in
   users.users.diskutabel.packages = [ pkgs.kitty ];
 
   environment.systemPackages = with pkgs; [
-    sddm-hyprlock-theme
+    sddm-lock-theme
 
     # hyprland session
     hyprpolkitagent

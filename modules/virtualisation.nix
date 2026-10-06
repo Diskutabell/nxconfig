@@ -1,5 +1,4 @@
 {
-  # Windows VMs
   virtualisation.libvirtd = {
     enable = true;
     qemu.swtpm.enable = true; # TPM 2.0 for Windows 11

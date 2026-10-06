@@ -1,8 +1,3 @@
-# Runs as the SDDM Xsetup script.
-
-# X11 doesn't know the Hyprland monitor layout and its output names differ
-# from Wayland's, so match outputs by mode instead:
-#   HDMI 1920x1080 @ 0x0 | fastest 1440p @ 1920x0 | other 1440p @ 4480x0
 hd=""; fast=""; slow=""; bestrate=0
 
 for o in $(xrandr -q 2>/dev/null | grep " connected" | cut -d" " -f1); do
@@ -33,18 +28,30 @@ done
 [ -n "$fast" ] && xrandr --output "$fast" --mode 2560x1440 --pos 1920x0 --primary || true
 [ -n "$slow" ] && xrandr --output "$slow" --mode 2560x1440 --pos 4480x0 || true
 
-# Blurred random wallpaper as the greeter background.
-walls=/home/diskutabel/Pictures/walls
-out=/var/lib/sddm-hyprlock
+home=/home/diskutabel
+out=/var/lib/sddm-lock
 mkdir -p "$out"
 
-wall="$(find "$walls" -maxdepth 1 -type f \
-  \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
-  2>/dev/null | shuf -n1)"
+wall=$home/.cache/quickshell/wallpaper_picker/current_wallpaper.png
+if [ ! -f "$wall" ]; then
+  wall="$(find "$home/Pictures/walls" -maxdepth 1 -type f \
+    \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
+    2>/dev/null | shuf -n1)"
+fi
 
 if [ -n "$wall" ] &&
   magick "$wall" -resize 2560x1440^ -gravity center -extent 2560x1440 \
-    -blur 0x18 -modulate 70 "$out/background.png.new"; then
+    -blur 0x24 "$out/background.png.new"; then
   mv -f "$out/background.png.new" "$out/background.png"
-  chmod 0644 "$out/background.png"
 fi
+
+[ -f /tmp/qs_colors.json ] && cp -f /tmp/qs_colors.json "$out/colors.json"
+
+for face in "$home/.face.icon" "$home/.face"; do
+  if [ -f "$face" ]; then
+    magick "$face" "$out/face.png"
+    break
+  fi
+done
+
+chmod 0644 "$out"/* 2>/dev/null || true

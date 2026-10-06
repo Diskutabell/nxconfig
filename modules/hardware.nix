@@ -6,7 +6,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # amdgpu link-training errors spam the LUKS prompt; they're harmless.
   boot.consoleLogLevel = 3;
   boot.kernelParams = [ "quiet" "loglevel=3" "rd.udev.log_level=3" ];
   boot.initrd.verbose = false;
