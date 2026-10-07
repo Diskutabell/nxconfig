@@ -57,6 +57,7 @@ in
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    jetbrains-mono # quickshell text font
     noto-fonts
     noto-fonts-color-emoji
   ];

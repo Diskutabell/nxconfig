@@ -12,6 +12,7 @@
 
   users.users.diskutabel.packages = with pkgs; [
     prismlauncher
+    jdk25
     lug-helper
     inputs.nix-citizen.packages.${pkgs.stdenv.hostPlatform.system}.rsi-launcher
     wineWow64Packages.stable

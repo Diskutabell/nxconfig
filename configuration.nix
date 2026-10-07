@@ -118,3 +118,8 @@
 # sudo nix flake update
 # sudo nixos-rebuild switch --flake .
 # sudo chown -R diskutabel:users /etc/nixos
+
+# git clone example.org/someproject
+# cd someproject
+# cargo build
+# cargo doc --open             
