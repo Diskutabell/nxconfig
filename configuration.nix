@@ -33,7 +33,7 @@
     ./modules/virtualisation.nix
   ];
 
-  networking.hostName = "nixos";
+  networking.hostName = "desktop";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Berlin";
@@ -65,7 +65,7 @@
       lufus
     ];
   };
-
+  
   services.mullvad-vpn.enable = true;
   services.mullvad-vpn.gui.enable = true;
 
