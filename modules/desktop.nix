@@ -52,6 +52,15 @@ in
     platformTheme = "kde";
   };
 
+  # nautilus as the file picker (firefox etc.): portal-gnome delegates FileChooser to it
+  xdg.portal = {
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    config.hyprland = {
+      default = [ "hyprland" "gtk" ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "gnome" ];
+    };
+  };
+
   services.udisks2.enable = true;
   services.gvfs.enable = true;
 

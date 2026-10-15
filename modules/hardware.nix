@@ -29,7 +29,10 @@
   };
 
   services.lact.enable = true;
-  services.hardware.openrgb.enable = true;
+  services.hardware.openrgb = {
+    enable = true;
+    startupProfile = "PINKKKK"; # apply on boot, otherwise the Quadcast S falls back to its rainbow
+  };
   services.power-profiles-daemon.enable = true;
 
   hardware.bluetooth.enable = true;
