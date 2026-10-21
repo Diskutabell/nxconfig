@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Marathon New Cascadia
+Description=Marathon New Cascadia terminal unlock screen
+ModuleName=script
+
+[script]
+ImageDir=@out@/share/plymouth/themes/marathon-newcascadia
+ScriptFile=@out@/share/plymouth/themes/marathon-newcascadia/marathon-newcascadia.script

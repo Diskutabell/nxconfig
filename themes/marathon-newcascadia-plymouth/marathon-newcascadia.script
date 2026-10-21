@@ -1,0 +1,156 @@
+Window.SetBackgroundTopColor(0, 0, 0);
+Window.SetBackgroundBottomColor(0, 0, 0);
+
+screen_w = Window.GetWidth();
+screen_h = Window.GetHeight();
+scale = Math.Min(screen_w / 2560, screen_h / 1440);
+origin_x = Window.GetX() + (screen_w - 2560 * scale) / 2;
+origin_y = Window.GetY() + (screen_h - 1440 * scale) / 2;
+
+fun sx(x) { return Math.Int(global.origin_x + x * global.scale); }
+fun sy(y) { return Math.Int(global.origin_y + y * global.scale); }
+fun sz(n) { return Math.Int(n * global.scale + 0.5); }
+
+fun load(file) {
+  img = Image(file);
+  if (global.scale != 1)
+    img = img.Scale(sz(img.GetWidth()), sz(img.GetHeight()));
+  return img;
+}
+
+fun sprite_at(img, x, y, z) {
+  s = Sprite(img);
+  s.SetPosition(sx(x), sy(y), z);
+  return s;
+}
+
+fun center_sprite(sprite, img, center_x, center_y) {
+  sprite.SetImage(img);
+  sprite.SetPosition(sx(center_x) - Math.Int(img.GetWidth() / 2), sy(center_y) - Math.Int(img.GetHeight() / 2), 10);
+  sprite.SetOpacity(1);
+}
+
+fun left_sprite(sprite, img, x, center_y) {
+  sprite.SetImage(img);
+  sprite.SetPosition(sx(x), sy(center_y) - Math.Int(img.GetHeight() / 2), 10);
+  sprite.SetOpacity(1);
+}
+
+background = sprite_at(load("background.png"), 0, 0, -100);
+icon = sprite_at(load("icon_nixos.png"), 1237, 470, 5);
+title = Sprite();
+center_sprite(title, load("text_nixos.png"), 1285, 600);
+
+img_password = load("text_password.png");
+img_placeholder = load("text_placeholder.png");
+img_hint_unlock = load("text_hint_unlock.png");
+img_hint_details = load("text_hint_details.png");
+img_status_wait = load("text_status_wait.png");
+img_status_boot = load("text_status_boot.png");
+img_status_shutdown = load("text_status_shutdown.png");
+img_status_reboot = load("text_status_reboot.png");
+img_dot = load("dot.png");
+
+field_label = Sprite();
+field = sprite_at(load("field.png"), 973, 690, 2);
+placeholder = Sprite();
+for (i = 0; i < 29; i++) {
+  dot[i] = sprite_at(img_dot, 993 + i * 20, 715, 6);
+  dot[i].SetOpacity(0);
+}
+message = Sprite();
+hint = Sprite();
+status = Sprite();
+
+fill_l_img = load("fill_l.png");
+fill_c_img = Image("fill_c.png");
+fill_r_img = load("fill_r.png");
+fill_l = sprite_at(fill_l_img, 973, 994, 4);
+fill_c = Sprite();
+fill_c.SetPosition(sx(983), sy(994), 4);
+fill_r = Sprite(fill_r_img);
+
+password_mode = 0;
+
+fun set_progress(fraction) {
+  w = Math.Int(Math.Clamp(fraction, 0, 1) * 622);
+  if (w < 20) {
+    global.fill_l.SetOpacity(0);
+    global.fill_c.SetOpacity(0);
+    global.fill_r.SetOpacity(0);
+  }
+  else {
+    global.fill_c.SetImage(global.fill_c_img.Scale(sz(w - 20), sz(58)));
+    global.fill_r.SetPosition(sx(973 + w - 10), sy(994), 4);
+    global.fill_l.SetOpacity(1);
+    global.fill_c.SetOpacity(1);
+    global.fill_r.SetOpacity(1);
+  }
+}
+
+fun status_image() {
+  mode = Plymouth.GetMode();
+  if (mode == "shutdown") return global.img_status_shutdown;
+  if (mode == "reboot") return global.img_status_reboot;
+  return global.img_status_boot;
+}
+
+fun show_field(visible) {
+  global.field_label.SetOpacity(visible);
+  global.field.SetOpacity(visible);
+  global.placeholder.SetOpacity(0);
+  for (i = 0; i < 29; i++)
+    global.dot[i].SetOpacity(0);
+}
+
+fun draw_normal() {
+  show_field(0);
+  center_sprite(global.hint, global.img_hint_details, 1286, 965);
+  center_sprite(global.status, status_image(), 1285, 1023);
+}
+
+fun draw_password(bullets) {
+  show_field(1);
+  left_sprite(global.field_label, global.img_password, 973, 672);
+  if (bullets == 0)
+    left_sprite(global.placeholder, global.img_placeholder, 993, 720);
+  else {
+    for (i = 0; i < bullets && i < 29; i++)
+      global.dot[i].SetOpacity(1);
+  }
+  center_sprite(global.hint, global.img_hint_unlock, 1286, 965);
+  center_sprite(global.status, global.img_status_wait, 1285, 1023);
+  set_progress(0);
+}
+
+fun on_message(str) {
+  center_sprite(global.message, Image.Text(str, 0.765, 0.761, 0.757, 1, "DejaVu Sans Mono " + sz(11)), 1285, 790);
+}
+
+fun on_hide_message(str) {
+  global.message.SetOpacity(0);
+}
+
+fun on_progress(duration, progress) {
+  if (!global.password_mode)
+    set_progress(progress);
+}
+
+fun on_password(prompt, bullets) {
+  global.password_mode = 1;
+  draw_password(bullets);
+}
+
+fun on_normal() {
+  global.password_mode = 0;
+  draw_normal();
+}
+
+Plymouth.SetDisplayNormalFunction(on_normal);
+Plymouth.SetDisplayPasswordFunction(on_password);
+Plymouth.SetDisplayMessageFunction(on_message);
+Plymouth.SetHideMessageFunction(on_hide_message);
+Plymouth.SetBootProgressFunction(on_progress);
+
+set_progress(0);
+draw_normal();

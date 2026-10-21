@@ -10,10 +10,10 @@
     efiSupport = true;
     device = "nodev";
     configurationLimit = 10;
-    theme = ../themes/sidonia-t1;
-    font = "${../themes/sidonia-t1}/fonts/sidonia-t1-1440p.pf2";
+    theme = ../themes/marathon-newcascadia;
+    font = "${../themes/marathon-newcascadia}/Interference-16.pf2";
     gfxmodeEfi = "2560x1440,auto";
-    splashImage = "${../themes/sidonia-t1}/background.png";
+    splashImage = "${../themes/marathon-newcascadia}/background.jpg";
     extraEntries = ''
       menuentry "UEFI Firmware Settings" --class efi {
         fwsetup
@@ -29,13 +29,13 @@
 
   boot.plymouth = {
     enable = true;
-    theme = "sidonia-t2";
+    theme = "marathon-newcascadia";
     themePackages = [
-      (pkgs.runCommand "plymouth-sidonia-t2" { } ''
+      (pkgs.runCommand "plymouth-marathon-newcascadia" { } ''
         mkdir -p $out/share/plymouth/themes
-        cp -r ${../themes/sidonia-t2-plymouth} $out/share/plymouth/themes/sidonia-t2
-        chmod -R u+w $out/share/plymouth/themes/sidonia-t2
-        substituteInPlace $out/share/plymouth/themes/sidonia-t2/sidonia-t2.plymouth --replace-fail "@out@" "$out"
+        cp -r ${../themes/marathon-newcascadia-plymouth} $out/share/plymouth/themes/marathon-newcascadia
+        chmod -R u+w $out/share/plymouth/themes/marathon-newcascadia
+        substituteInPlace $out/share/plymouth/themes/marathon-newcascadia/marathon-newcascadia.plymouth --replace-fail "@out@" "$out"
       '')
     ];
     font = "${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuSansMono.ttf";

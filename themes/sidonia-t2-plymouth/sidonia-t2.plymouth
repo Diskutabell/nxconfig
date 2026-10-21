@@ -1,8 +1,0 @@
-[Plymouth Theme]
-Name=Sidonia T2
-Description=Sidonia T2 Gridline unlock screen
-ModuleName=script
-
-[script]
-ImageDir=@out@/share/plymouth/themes/sidonia-t2
-ScriptFile=@out@/share/plymouth/themes/sidonia-t2/sidonia-t2.script
