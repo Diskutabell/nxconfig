@@ -31,6 +31,7 @@
     ./modules/dev.nix
     ./modules/gaming.nix
     ./modules/virtualisation.nix
+    ./modules/firefox.nix
   ];
 
   networking.hostName = "desktop";
@@ -69,9 +70,6 @@
   services.mullvad-vpn.enable = true;
   services.mullvad-vpn.gui.enable = true;
 
-  programs.firefox.enable = true;
-  programs.firefox.preferences."widget.use-xdg-desktop-portal.file-picker" = 1;
-     
   environment.systemPackages = with pkgs; [
     git
     gh
