@@ -32,6 +32,7 @@
     ./modules/gaming.nix
     ./modules/virtualisation.nix
     ./modules/firefox.nix
+    ./modules/librewolf.nix
   ];
 
   networking.hostName = "desktop";
