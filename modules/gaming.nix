@@ -1,5 +1,15 @@
 { pkgs, inputs, ... }:
 
+let
+  rsi-launcher = pkgs.symlinkJoin {
+    name = "rsi-launcher";
+    paths = [ inputs.nix-citizen.packages.${pkgs.stdenv.hostPlatform.system}.rsi-launcher ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/rsi-launcher --set XDG_SESSION_TYPE x11
+    '';
+  };
+in
 {
   programs.steam = {
     enable = true;
@@ -14,7 +24,7 @@
     prismlauncher
     jdk25
     lug-helper
-    inputs.nix-citizen.packages.${pkgs.stdenv.hostPlatform.system}.rsi-launcher
+    rsi-launcher
     wineWow64Packages.stable
     winetricks
   ];
