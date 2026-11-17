@@ -24,8 +24,6 @@
 
   boot.consoleLogLevel = 3;
   boot.kernelParams = [ "quiet" "loglevel=3" "rd.udev.log_level=3" ];
-  boot.initrd.verbose = false;
-  boot.initrd.systemd.enable = true;
 
   boot.plymouth = {
     enable = true;
