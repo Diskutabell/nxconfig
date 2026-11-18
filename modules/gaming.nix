@@ -6,7 +6,7 @@ let
     paths = [ inputs.nix-citizen.packages.${pkgs.stdenv.hostPlatform.system}.rsi-launcher ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
-      wrapProgram $out/bin/rsi-launcher --set XDG_SESSION_TYPE x11
+      wrapProgram $out/bin/rsi-launcher --set XDG_SESSION_TYPE x11 --set PULSE_LATENCY_MSEC 60
     '';
   };
 in
@@ -19,6 +19,8 @@ in
   };
 
   programs.gamemode.enable = true;
+
+  boot.kernelModules = [ "ntsync" ];
 
   users.users.diskutabel.packages = with pkgs; [
     prismlauncher
